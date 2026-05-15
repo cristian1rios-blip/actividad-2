@@ -10,6 +10,11 @@ on:
 jobs:
   saludo:
     runs-on: ubuntu-latest
+
+    env:
+      AMBIENTE: "produccion"
+      API_KEY: ${{ secrets.API_KEY }}
+
     steps:
       - name: Checkout del repositorio
         uses: actions/checkout@v4
@@ -24,3 +29,14 @@ jobs:
 
       - name: Mostrar version de Node.js
         run: node -v
+
+      - name: Mostrar variable de entorno
+        run: echo "Ambiente actual $AMBIENTE"
+
+      - name: Verificar secret sin exponerlo
+        run: |
+          if [ -n "$API_KEY" ]; then
+            echo "API_KEY esta configurada correctamente ✓"
+          else
+            echo "API_KEY no encontrada ✗"
+          fi
