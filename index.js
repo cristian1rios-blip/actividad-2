@@ -1,1 +1,1 @@
-console.log("Hola mundo con Node.js");
+console.log("Probando secrets y variables");
