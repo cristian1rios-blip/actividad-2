@@ -2,6 +2,10 @@ name: Primer Workflow CI/CD
 
 on:
   push:
+    branches:
+      - main
+    paths:
+      - '**.js'
 
 jobs:
   saludo:
