@@ -1,0 +1,11 @@
+name: Primer Workflow CI/CD
+
+on:
+  push:
+
+jobs:
+  saludo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Imprimir mensaje
+        run: echo "Hola CI/CD"
