@@ -2,10 +2,25 @@ name: Primer Workflow CI/CD
 
 on:
   push:
+    branches:
+      - main
+    paths:
+      - '**.js'
 
 jobs:
   saludo:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
       - name: Imprimir mensaje
         run: echo "Hola CI/CD"
+
+      - name: Mostrar version de Node.js
+        run: node -v
