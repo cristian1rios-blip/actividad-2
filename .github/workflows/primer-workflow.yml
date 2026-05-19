@@ -4,23 +4,26 @@ on:
   push:
     branches:
       - main
-    paths:
-      - '**.js'
 
 jobs:
-  saludo:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout del repositorio
         uses: actions/checkout@v4
 
-      - name: Configurar Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
+      - name: Construir imagen Docker base
+        run: docker build -t app-base .
 
-      - name: Imprimir mensaje
-        run: echo "Hola CI/CD"
+      - name: Medir tamaño de imagen
+        run: docker image inspect app-base --format='Tamaño imagen: {{.Size}} bytes'
 
-      - name: Mostrar version de Node.js
-        run: node -v
+      - name: Ejecutar contenedor y verificar
+        run: |
+          docker run -d -p 3000:3000 --name contenedor-base app-base
+          sleep 3
+          curl http://localhost:3000
+          docker stop contenedor-base
+
+      - name: Ver uso de recursos
+        run: docker stats contenedor-base --no-stream || true
