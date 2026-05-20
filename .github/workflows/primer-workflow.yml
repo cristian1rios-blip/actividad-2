@@ -12,18 +12,15 @@ jobs:
       - name: Checkout del repositorio
         uses: actions/checkout@v4
 
-      - name: Construir imagen Docker base
-        run: docker build -t app-base .
+      - name: Construir imagen Docker optimizada
+        run: docker build -t app-optimizada .
 
-      - name: Medir tamano de imagen
-        run: docker image inspect app-base --format="{{.Size}}"
+      - name: Medir tamano de imagen optimizada
+        run: docker image inspect app-optimizada --format="{{.Size}}"
 
       - name: Ejecutar contenedor y verificar
         run: |
-          docker run -d -p 3000:3000 --name contenedor-base app-base
+          docker run -d -p 3000:3000 --name contenedor-optimizado app-optimizada
           sleep 3
           curl http://localhost:3000
-          docker stop contenedor-base
-
-      - name: Ver uso de recursos
-        run: docker stats contenedor-base --no-stream || true
+          docker stop contenedor-optimizado
