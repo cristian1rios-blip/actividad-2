@@ -15,8 +15,8 @@ jobs:
       - name: Construir imagen Docker base
         run: docker build -t app-base .
 
-      - name: Medir tamaño de imagen
-        run: docker image inspect app-base --format='Tamaño imagen: {{.Size}} bytes'
+      - name: Medir tamano de imagen
+        run: docker image inspect app-base --format="{{.Size}}"
 
       - name: Ejecutar contenedor y verificar
         run: |
